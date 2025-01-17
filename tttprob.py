@@ -17,9 +17,9 @@ def connect_database():
 def setup_database():
     cursor, conn = connect_database()
     cursor.execute("""
-        CREATE TABLE IF NOT EXISTS game_results (
+        CREATE TABLE IF NOT EXISTS games (
             id INT AUTO_INCREMENT PRIMARY KEY,
-            player_name VARCHAR(100),
+            playerName VARCHAR(100),
             result ENUM('Win', 'Loss', 'Draw')
         )
     """)
