@@ -110,7 +110,7 @@ def computer_move(board, win_probability=0.6):
 
 # Main game loop
 def tic_tac_toe():
-    # setup_database() # execute only once at the start
+    setup_database() # execute only once at the start
     player_name = input("Enter your name: ")
     board = [" "] * 9
     print("Welcome to Tic Tac Toe!")
