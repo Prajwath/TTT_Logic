@@ -55,18 +55,25 @@ def minimax(board, depth, is_maximizing):
         return best_score
 
 # Find the computer's move
-def computer_move(board):
-    best_score = -float("inf")
-    move = None
-    for i in range(9):
-        if board[i] == " ":
-            board[i] = "O"
-            score = minimax(board, 0, False)
-            board[i] = " "
-            if score > best_score:
-                best_score = score
-                move = i
-    return move
+def computer_move(board, win_probability=0.7):
+    # Roll a random number to decide strategy
+    if random.random() < win_probability:
+        # Optimal move (70% of the time)
+        best_score = -float("inf")
+        move = None
+        for i in range(9):
+            if board[i] == " ":
+                board[i] = "O"
+                score = minimax(board, 0, False)
+                board[i] = " "
+                if score > best_score:
+                    best_score = score
+                    move = i
+        return move
+    else:
+        # Random move (30% of the time)
+        valid_moves = [i for i, spot in enumerate(board) if spot == " "]
+        return random.choice(valid_moves)
 
 # Main game loop
 def tic_tac_toe():
@@ -77,11 +84,15 @@ def tic_tac_toe():
 
     while True:
         # User's turn
-        user_move = int(input("Enter your move (0-8): "))
-        if board[user_move] != " ":
-            print("Invalid move. Try again.")
+        try:
+            user_move = int(input("Enter your move (0-8): "))
+            if board[user_move] != " ":
+                print("Invalid move. Try again.")
+                continue
+            board[user_move] = "X"
+        except (ValueError, IndexError):
+            print("Invalid input. Please enter a number between 0 and 8.")
             continue
-        board[user_move] = "X"
         display_board(board)
 
         if check_winner(board, "X"):
@@ -93,7 +104,7 @@ def tic_tac_toe():
 
         # Computer's turn
         print("Computer's turn...")
-        comp_move = computer_move(board)
+        comp_move = computer_move(board, win_probability=0.6)  # 70% optimal moves
         board[comp_move] = "O"
         display_board(board)
 
