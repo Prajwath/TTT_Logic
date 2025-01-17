@@ -55,10 +55,10 @@ def minimax(board, depth, is_maximizing):
         return best_score
 
 # Find the computer's move
-def computer_move(board, win_probability=0.7):
+def computer_move(board, win_probability=0.6):
     # Roll a random number to decide strategy
     if random.random() < win_probability:
-        # Optimal move (70% of the time)
+        # Optimal move (60% of the time)
         best_score = -float("inf")
         move = None
         for i in range(9):
@@ -104,7 +104,7 @@ def tic_tac_toe():
 
         # Computer's turn
         print("Computer's turn...")
-        comp_move = computer_move(board, win_probability=0.6)  # 70% optimal moves
+        comp_move = computer_move(board, win_probability=0.6)  # 60% optimal moves
         board[comp_move] = "O"
         display_board(board)
 
